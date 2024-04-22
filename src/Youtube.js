@@ -94,11 +94,14 @@ THE SOFTWARE. */
     createEl() {
       var div = document.createElement('div');
       div.setAttribute('id', this.options_.techId);
-      div.style.width = '100%';
-      div.style.height = '100%';
-      div.style.top = '0';
-      div.style.left = '0';
-      div.style.position = 'absolute';
+
+      if (!window.VIDEOJS_NO_DYNAMIC_STYLE) {
+        div.style.width = '100%';
+        div.style.height = '100%';
+        div.style.top = '0';
+        div.style.left = '0';
+        div.style.position = 'absolute';
+      }
       div.setAttribute('class', 'vjs-tech');
 
       var divWrapper = document.createElement('div');
@@ -107,11 +110,13 @@ THE SOFTWARE. */
       if (!_isOnMobile && !this.options_.ytControls) {
         var divBlocker = document.createElement('div');
         divBlocker.setAttribute('class', 'vjs-iframe-blocker');
-        divBlocker.style.width = '100%';
-        divBlocker.style.height = '100%';
-        divBlocker.style.top = '0';
-        divBlocker.style.left = '0';
-        divBlocker.style.position = 'absolute';
+        if (!window.VIDEOJS_NO_DYNAMIC_STYLE) {
+          divBlocker.style.width = '100%';
+          divBlocker.style.height = '100%';
+          divBlocker.style.top = '0';
+          divBlocker.style.left = '0';
+          divBlocker.style.position = 'absolute';
+        }
 
         // In case the blocker is still there and we want to pause
         divBlocker.onclick = function() {
@@ -794,7 +799,9 @@ THE SOFTWARE. */
 
   if (typeof document !== 'undefined'){
     loadScript('https://www.youtube.com/iframe_api', apiLoaded);
-    injectCss();
+    if (!window.VIDEOJS_NO_DYNAMIC_STYLE) {
+      injectCss();
+    }
   }
 
   // Older versions of VJS5 doesn't have the registerTech function
